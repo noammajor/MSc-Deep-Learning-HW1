@@ -49,7 +49,7 @@ def Test(U,X,b1,b2,y, w):
     y_Pred = np.dot(h, w) + b2
     
     #loss
-    loss = np.mean((y_Pred - y)**2)
+    loss = np.mean(lossFunc(y_Pred, y))
     preds = np.where(y_Pred >= 0, 1, -1)
     accuracy = np.mean(np.equal(y, preds))
     return loss, accuracy
@@ -58,7 +58,6 @@ def Test(U,X,b1,b2,y, w):
 
 learningRate = 0.1
 epochs = 400
-N = 4,
 input_dim = 2
 internal_dim =2
 
@@ -98,7 +97,7 @@ for epoch in range(epochs):
     y_Pred = np.dot(h,w) + b2
     
     #loss
-    loss = np.mean((y_Pred - y)**2)
+    loss = np.mean(lossFunc(y_Pred, y))
     train_losses.append(loss)
     
     param_1_history.append(randomTrack1[0][randomTrack1[1], randomTrack1[2]])
