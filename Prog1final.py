@@ -111,19 +111,22 @@ test_loss, test_acc = Test(U, X, b1, b2, y, w)
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 
 # Q4 - part 3
-ax1.plot(train_losses, color='red')
-ax1.set_title(f"Loss (Test: {test_loss:.4f})")
 ax1.set_xlabel("Epochs")
 ax1.set_ylabel("MSE Loss")
+ax1.set_title(f"Loss (Test: {test_loss:.4f})")
+ax1.plot(train_losses, color='red')
+ax1.grid()
 ax1.legend()
 
 #Q4 - part 4
-ax2.plot(param_1_history, label=ranTrack1[2], color='blue')
-ax2.plot(param_2_history, label=ranTrack2[2], color='green')
 ax2.set_title("Evolution of Random Parameters")
 ax2.set_xlabel("Epochs")
 ax2.set_ylabel("Parameter Value")
+ax2.plot(param_1_history, label=ranTrack1[2], color='blue')
+ax2.plot(param_2_history, label=ranTrack2[2], color='green')
+ax2.grid()
 ax2.legend()
 
 plt.tight_layout()
 plt.show()
+# %%
