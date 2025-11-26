@@ -57,7 +57,7 @@ epochs = 400
 input_dim = 2
 internal_dim =2
 
-# Random Init (Fixed seed for reproducibility)
+# Random Init seed
 np.random.seed(None)
 
 #Random inishilization
