@@ -5,7 +5,7 @@ Created on Tue Nov 25 17:41:33 2025
 
 @author: noammajor
 """
-#%%
+#%% import
 import numpy as np
 import matplotlib.pyplot as plt
 #%%  dataset
@@ -57,7 +57,7 @@ def Test(U,X,b1,b2,y, w):
 #%% Model Training
 
 learningRate = 0.1
-epochs = 300
+epochs = 400
 N = 4,
 input_dim = 2
 internal_dim =2
@@ -141,3 +141,5 @@ ax2.legend()
 
 plt.tight_layout()
 plt.show()
+
+# %%
