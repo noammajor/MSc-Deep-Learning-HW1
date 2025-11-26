@@ -109,8 +109,6 @@ for epoch in range(epochs):
     b1 -= learningRate*DL_db1
     b2 -= learningRate*DL_db2
     
-    print(f"Epoch {epoch}, Loss: {loss:.5f}")
-    
 
 # %% 4. Results + testing
 test_loss, test_acc = Test(U, X, b1, b2, y, w)
@@ -134,7 +132,3 @@ ax2.legend()
 
 plt.tight_layout()
 plt.show()
-
-
-
-# %%
