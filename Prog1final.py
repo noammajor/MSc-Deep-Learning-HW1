@@ -34,7 +34,8 @@ def Graidents(y,y_Pred ,w ,h , x):
     #graident U
     grad_U = np.dot(x.T,gradMaxF )
     return grad_w,grad_b2,grad_b1,grad_U
-# max func
+
+# max func (forward pass)
 def MaxFunc(U,x,b):
     z = np.dot(x, U) + b 
     return np.maximum(0, z), z
