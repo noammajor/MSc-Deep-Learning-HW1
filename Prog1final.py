@@ -18,9 +18,6 @@ X = np.array([
 ])
 y = np.array([-1, 1, 1, -1]).reshape(-1, 1)
 
-#%% loss function
-def lossFunc(yPred, y):
-    return (yPred - y)**2
 
 #%% max function
 def MaxFunc(U,x,b):
@@ -28,19 +25,18 @@ def MaxFunc(U,x,b):
     return np.maximum(0, z), z
 #%% graidents function
 def Graidents(y,y_Pred ,w ,h , x):
-    N = y.shape[0]
     #dirivitive by yPred
-    DL_dyPred = -2*(y - y_Pred) / N
+    DL_dyPred = -2*(y - y_Pred) / y.shape[0]
     #graident by w
     DL_dw = np.dot(h.T, DL_dyPred)
     #graident by b2
     DL_db2 = np.sum(DL_dyPred, axis=0, keepdims=True)
     #Dz
-    Dz_Val = np.dot(DL_dyPred, w.T)* (h > 0).astype(float)
+    DzHelper = np.dot(DL_dyPred, w.T)* (h > 0).astype(float)
     #graident by b1
-    DL_db1 = np.sum(Dz_Val, axis=0, keepdims=True)
+    DL_db1 = np.sum(DzHelper, axis=0, keepdims=True)
     #graident by U
-    DL_dU = np.dot(x.T,Dz_Val)
+    DL_dU = np.dot(x.T,DzHelper)
     return DL_dw,DL_db2,DL_db1,DL_dU
 #%% Test function
 def Test(U,X,b1,b2,y, w):
@@ -49,7 +45,7 @@ def Test(U,X,b1,b2,y, w):
     y_Pred = np.dot(h, w) + b2
     
     #loss
-    loss = np.mean(lossFunc(y_Pred, y))
+    loss = np.mean((y_Pred - y)**2)
     preds = np.where(y_Pred >= 0, 1, -1)
     accuracy = np.mean(np.equal(y, preds))
     return loss, accuracy
@@ -97,7 +93,7 @@ for epoch in range(epochs):
     y_Pred = np.dot(h,w) + b2
     
     #loss
-    loss = np.mean(lossFunc(y_Pred, y))
+    loss = np.mean((y_Pred - y)**2)
     train_losses.append(loss)
     
     param_1_history.append(randomTrack1[0][randomTrack1[1], randomTrack1[2]])
@@ -118,27 +114,27 @@ for epoch in range(epochs):
 
 # %% 4. Results + testing
 test_loss, test_acc = Test(U, X, b1, b2, y, w)
-print(f"\nTest Accuracy: {test_acc * 100}%")
-print(f"Test Loss: {test_loss:.5f}")
 
 # Create two subplots
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 
 # Q4 - part 3
 ax1.plot(train_losses, color='red')
-ax1.set_title(f"Loss (Final: {test_loss:.4f})")
+ax1.set_title(f"Loss (Test: {test_loss:.4f})")
 ax1.set_xlabel("Epochs")
-ax1.set_ylabel("Squared Loss")
+ax1.set_ylabel("MSE Loss")
 
 #Q4 - part 4
 ax2.plot(param_1_history, label=randomTrack1[3], color='blue')
 ax2.plot(param_2_history, label=randomTrack2[3], color='green')
 ax2.set_title("Evolution of Random Parameters")
 ax2.set_xlabel("Epochs")
-ax2.set_ylabel("Value")
+ax2.set_ylabel("Parameter Value")
 ax2.legend()
 
 plt.tight_layout()
 plt.show()
+
+
 
 # %%
