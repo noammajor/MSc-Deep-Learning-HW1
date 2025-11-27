@@ -36,13 +36,13 @@ def Graidents(y,y_Pred ,w ,h , x):
     return grad_w,grad_b2,grad_b1,grad_U
 
 # max func (forward pass)
-def MaxFunc(U,x,b):
+def MaxFuncFP(U,x,b):
     z = np.dot(x, U) + b 
-    return np.maximum(0, z), z
+    return np.maximum(0, z)
 #%% Test function
 def Test(U,X,b1,b2,y, w):
     #forward pass
-    h, z = MaxFunc(U, X, b1)
+    h = MaxFuncFP(U, X, b1)
     y_Pred = np.dot(h, w) + b2
     
     #loss calc
@@ -88,22 +88,21 @@ param_2_history = []
 for epoch in range(epochs):
     
     #forward pass
-    h, z = MaxFunc(U, X, b1)
+    h = MaxFuncFP(U, X, b1)
     y_Pred = np.dot(h,w) + b2
     
     #loss
-    loss = np.mean((y_Pred - y)**2)
-    train_losses.append(loss)
+    train_losses.append(np.mean((y_Pred - y)**2))
     
     param_1_history.append(ranTrack1[0][ranTrack1[1]])
     param_2_history.append(ranTrack2[0][ranTrack2[1]])
     grad_w,grad_b2,grad_b1,grad_U = Graidents(y, y_Pred, w, h, X)
     
     #Update learnable paramters
-    U -= learningRate*grad_U
-    w -= learningRate*grad_w
-    b1 -= learningRate*grad_b1
-    b2 -= learningRate*grad_b2
+    U -= learningRate * grad_U
+    w -= learningRate * grad_w
+    b1 -= learningRate * grad_b1
+    b2 -= learningRate * grad_b2
 
 # Final Test + Plots
 test_loss, test_acc = Test(U, X, b1, b2, y, w)
