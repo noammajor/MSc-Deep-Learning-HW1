@@ -59,7 +59,7 @@ input_dim = 2
 internal_dim =2
 
 # Random Init seed
-np.random.seed(42)
+np.random.seed(51)
 
 #Random inishilization
 #bais is safe at zero to start
