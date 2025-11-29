@@ -22,7 +22,7 @@ y = np.array([-1, 1, 1, -1]).reshape(-1, 1)
 # gradients function
 def Graidents(y,y_Pred ,w ,h , x):
     #dirivitive by yPred
-    grad_y = -2*(y - y_Pred) / y.shape[0]
+    grad_y = -2*(y - y_Pred)
     #graident w
     grad_w = np.dot(h.T, grad_y)
     #graident b2
@@ -36,13 +36,13 @@ def Graidents(y,y_Pred ,w ,h , x):
     return grad_w,grad_b2,grad_b1,grad_U
 
 # max func (forward pass)
-def MaxFuncFP(U,x,b):
+def MaxFP(U,x,b):
     z = np.dot(x, U) + b 
     return np.maximum(0, z)
 #%% Test function
 def Test(U,X,b1,b2,y, w):
     #forward pass
-    h = MaxFuncFP(U, X, b1)
+    h = MaxFP(U, X, b1)
     y_Pred = np.dot(h, w) + b2
     
     #loss calc
@@ -59,7 +59,7 @@ input_dim = 2
 internal_dim =2
 
 # Random Init seed
-np.random.seed(None)
+np.random.seed(42)
 
 #Random inishilization
 #bais is safe at zero to start
@@ -88,7 +88,7 @@ param_2_history = []
 for epoch in range(epochs):
     
     #forward pass
-    h = MaxFuncFP(U, X, b1)
+    h = MaxFP(U, X, b1)
     y_Pred = np.dot(h,w) + b2
     
     #loss
@@ -113,7 +113,7 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 ax1.set_xlabel("Epochs")
 ax1.set_ylabel("MSE Loss")
 ax1.set_title(f"Loss (Test: {test_loss:.4f})")
-ax1.plot(train_losses, color='red')
+ax1.plot(train_losses, color='red', label='Training Loss')
 ax1.grid()
 ax1.legend()
 
@@ -121,7 +121,7 @@ ax1.legend()
 ax2.set_title("Evolution of Random Parameters")
 ax2.set_xlabel("Epochs")
 ax2.set_ylabel("Parameter Value")
-ax2.plot(param_1_history, label=ranTrack1[2], color='blue')
+ax2.plot(param_1_history, label=ranTrack1[2], color='blue',)
 ax2.plot(param_2_history, label=ranTrack2[2], color='green')
 ax2.grid()
 ax2.legend()
